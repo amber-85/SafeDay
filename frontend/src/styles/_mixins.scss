@@ -1,0 +1,19 @@
+@use "variables" as v;
+
+@mixin respond-up($size) {
+  $breakpoint: map-get(v.$breakpoints, $size);
+  @if $breakpoint != null {
+    @media (min-width: $breakpoint) { @content; }
+  } @else {
+    @warn "respond-up: breakpoint `#{$size}` not found in $breakpoints map.";
+  }
+}
+
+@mixin respond-down($size) {
+  $breakpoint: map-get(v.$breakpoints, $size);
+  @if $breakpoint != null {
+    @media (max-width: $breakpoint) { @content; }
+  } @else {
+    @warn "respond-down: breakpoint `#{$size}` not found in $breakpoints map.";
+  }
+}

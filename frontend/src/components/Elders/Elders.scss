@@ -1,0 +1,208 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.elders {
+  &__empty {
+    color: v.$muted-color; // soft gray
+    font-size: 0.95rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  &__button {
+    background-color: v.$primary-color; // soft green
+    color: v.$button-text-color;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+    margin-bottom: 1rem;
+
+    &:hover:not(:disabled) {
+      background-color: v.$primary-color-hover;
+      opacity: 0.95;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      outline: 3px solid v.$primary-color;
+      outline-offset: 3px;
+    }
+  }
+
+  &__form-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    z-index: 100;
+  }
+
+  &__form {
+    background-color: v.$background-color;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 20rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    color: v.$text-color;
+  }
+
+  &__form-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  &__form-input {
+    padding: 0.6rem;
+    border: 1px solid v.$border-color;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background-color: v.$input-bg;
+    color: v.$text-color;
+
+    &:focus {
+      outline: none;
+      border-color: v.$primary-color;
+      box-shadow: 0 0 0 2px rgba(111, 207, 151, 0.3); // soft green focus
+    }
+  }
+
+  &__form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+
+    & button {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.2s, opacity 0.2s;
+    }
+
+    &__save {
+      background-color: v.$primary-color;
+      color: v.$button-text-color;
+
+      &:hover:not(:disabled) {
+        background-color: v.$primary-color-hover;
+      }
+
+      &:focus-visible {
+        outline: 3px solid v.$primary-color;
+        outline-offset: 3px;
+      }
+    }
+
+    &__cancel {
+      color: v.$muted-color;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:focus-visible {
+        outline: 3px solid v.$primary-color;
+        outline-offset: 3px;
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border: 1px solid v.$border-color;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: v.$hover-bg; // soft hover background
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+
+      &__name {
+        font-weight: bold;
+        color: v.$text-color;
+      }
+
+      &__checkin {
+        font-size: 0.8rem;
+        color: v.$muted-color;
+      }
+
+      &__relationship {
+        font-size: 0.75rem;
+        color: v.$muted-color;
+      }
+    }
+
+    &__actions {
+      display: flex;
+      gap: 0.5rem;
+
+      button {
+        font-weight: 500;
+        cursor: pointer;
+        border: none;
+        background: none;
+        transition: opacity 0.2s;
+
+        &:focus-visible {
+          outline: 2px solid v.$primary-color;
+          outline-offset: 2px;
+        }
+
+        &--edit {
+          color: v.$primary-color;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        &--delete {
+          color: v.$danger-color;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  // Responsive
+  @include m.respond-down(small) {
+    &__form {
+      max-width: 100%;
+    }
+
+    &__item {
+      flex-direction: column;
+      align-items: flex-start;
+
+      &__actions {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}

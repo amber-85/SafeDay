@@ -1,0 +1,52 @@
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+
+.dashboard {
+  max-width: v.$container-width;
+  margin: 0 auto;
+  padding: 2rem;
+  color: v.$text-color;
+  background-color: v.$background-color;
+
+  // Tablet
+  @include m.respond-down(medium) {
+    padding: 1.5rem;
+  }
+
+  // Mobile
+  @include m.respond-down(small) {
+    padding: 1rem;
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: v.$text-color;
+
+    @include m.respond-down(medium) {
+      font-size: 1.3rem;
+    }
+
+    @include m.respond-down(small) {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__subtitle {
+    color: v.$muted-color;
+    margin-bottom: 1.5rem;
+
+    @include m.respond-down(small) {
+      font-size: 0.9rem;
+    }
+  }
+
+  // e focus-visible for interactive elements inside dashboard
+  button, a {
+    &:focus-visible {
+      outline: 3px solid v.$primary-color;
+      outline-offset: 3px;
+    }
+  }
+}

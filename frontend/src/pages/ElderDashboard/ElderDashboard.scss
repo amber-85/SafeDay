@@ -1,0 +1,62 @@
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+
+.elder-dashboard {
+  max-width: v.$container-width;
+  margin: 0 auto;
+  padding: 2rem;
+  color: v.$text-color;
+  background-color: v.$background-color;
+
+  // Tablet
+  @include m.respond-down(medium) {
+    padding: 1.5rem;
+  }
+
+  // Mobile
+  @include m.respond-down(small) {
+    padding: 1rem;
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: v.$text-color;
+
+    @include m.respond-down(medium) {
+      font-size: 1.3rem;
+    }
+
+    @include m.respond-down(small) {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__section {
+    margin-top: 2rem;
+
+    @include m.respond-down(small) {
+      margin-top: 1.5rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: v.$muted-color;
+
+    @include m.respond-down(small) {
+      font-size: 1rem;
+    }
+  }
+
+  // Accessibility: focus for interactive elements
+  button, a {
+    &:focus-visible {
+      outline: 3px solid v.$primary-color;
+      outline-offset: 3px;
+    }
+  }
+}

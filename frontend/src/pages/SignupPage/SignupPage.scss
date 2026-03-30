@@ -1,0 +1,64 @@
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+
+.signup {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: v.$background-color;
+  color: v.$text-color;
+
+  &__container {
+    width: 100%;
+    max-width: 28rem;
+    text-align: center;
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: v.$text-color;
+
+    @include m.respond-down(medium) {
+      font-size: 1.4rem;
+    }
+
+    @include m.respond-down(small) {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__footer {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: v.$muted-color;
+
+    a {
+      color: v.$primary-color;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover,
+      &:focus-visible {
+        text-decoration: underline;
+        outline: none;
+      }
+
+      &:focus-visible {
+        outline: 3px solid v.$primary-color;
+        outline-offset: 3px;
+      }
+    }
+  }
+
+  // Accessibility: focus visible for buttons/inputs inside signup
+  button, input {
+    &:focus-visible {
+      outline: 3px solid v.$primary-color;
+      outline-offset: 3px;
+    }
+  }
+}

@@ -1,12 +1,14 @@
+-- Enable UUID generation
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
--- user table
-
+-- =========================
+-- USERS TABLE
+-- =========================
 CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     phone_number TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    name Text,
+    name TEXT,
     last_check_in TIMESTAMP,
     reminder1_sent BOOLEAN DEFAULT FALSE,
     reminder2_sent BOOLEAN DEFAULT FALSE,
@@ -14,25 +16,24 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- emergency contacts
-CREATE TABLE IF NOT EXISTS emergency_contacts(
+-- =========================
+-- MANY-TO-MANY USER CONTACTS TABLE
+-- =========================
+CREATE TABLE IF NOT EXISTS user_contacts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-    phone_number TEXT NOT NULL,
-    password_hash TEXT NOT NULL,
-    name TEXT,
+    elder_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    contact_id UUID REFERENCES users(id) ON DELETE CASCADE,
     relationship TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW(),
+    UNIQUE(elder_id, contact_id)
 );
 
--- check-ins
-
+-- =========================
+-- CHECK-INS TABLE
+-- =========================
 CREATE TABLE IF NOT EXISTS check_ins (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID REFERENCES users(id) ON DELETE CASCADE,
     check_in_time TIMESTAMP DEFAULT NOW(),
     method VARCHAR(20) DEFAULT 'button'
 );
-
-
-

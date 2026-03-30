@@ -1,0 +1,19 @@
+$primary-color: #6fcf97; // soft green
+$primary-color-hover: #57b981; // hover
+$secondary-color: #d1f2dc; // very light green accents
+$background-color: #ffffff; // soft white
+$text-color: #1f2937; // dark gray text
+$muted-color: #6b7280; // muted gray text
+$border-color: #d1d5db; // soft gray borders
+
+$success-color: #34d399;
+$error-color: #f87171;
+$warning-color: #fbbf24;
+
+$button-text-color: #ffffff;
+
+$breakpoints: (
+  small: 640px,
+  medium: 768px,
+  large: 1024px
+);

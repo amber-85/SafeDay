@@ -1,14 +1,15 @@
 import express from "express";
-import cors form "cors";
-import userRoutes from "";
-import checkInRoutes from "";
+import cors from "cors";
+import userRoutes from "./routes/userRoutes";
+import checkInRoutes from "./routes/checkInRoutes"; // ✅ fixed
 
-const app=express();
+const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use("",userRoutes);
-app.use("",checkInRoutes);
+// Routes
+app.use("/api/users", userRoutes);
+app.use("/api/checkins", checkInRoutes);
 
 export default app;

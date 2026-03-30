@@ -1,0 +1,70 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.checkin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__button {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    border: none;
+    background-color: v.$primary-color; // soft green
+    color: v.$button-text-color;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); // softer shadow for accessibility
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background-color: v.$primary-color-hover; // soft hover
+      transform: scale(1.05);
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    // Tablet
+    @include m.respond-down(medium) {
+      width: 8rem;
+      height: 8rem;
+      font-size: 1rem;
+    }
+
+    // Mobile
+    @include m.respond-down(small) {
+      width: 6.5rem;
+      height: 6.5rem;
+      font-size: 0.9rem;
+    }
+
+    &:focus-visible {
+      outline: 3px solid v.$primary-color; // accessible focus
+      outline-offset: 4px;
+    }
+  }
+
+  &__success {
+    margin-top: 1rem;
+    color: v.$success-color; // accessible soft green
+    font-weight: 500;
+    font-size: 1rem;
+
+    @include m.respond-down(small) {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  }
+}

@@ -17,15 +17,20 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
+    "libphonenumber-js": "^1.12.41",
     "node-cron": "^4.2.1",
     "pg": "^8.20.0",
+    "react-router-dom": "^7.13.2",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.5.0",
     "@types/pg": "^8.20.0",
+    "@types/react-router-dom": "^5.3.3",
     "ts-node-dev": "^2.0.0",
     "typescript": "^6.0.2"
   }
