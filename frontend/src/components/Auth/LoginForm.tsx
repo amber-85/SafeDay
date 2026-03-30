@@ -15,13 +15,13 @@ export const LoginForm = ({ onSuccess }: Props) => {
     try {
       const res = await login({ phone_number: phone, password });
 
-      // store token
-      localStorage.setItem("token", res.token);
-
-      // optional: store user info
-      localStorage.setItem("user", JSON.stringify(res.user));
-
-      onSuccess();
+      if (res.token){
+        // store token
+        localStorage.setItem("token", res.token); //store JWT token
+        window.location.href="/elder";
+      } else if (res.error){
+        alert(res.error);
+      }
     } catch (err: any) {
       alert(err?.error || "Login failed");
     }

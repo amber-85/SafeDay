@@ -8,6 +8,25 @@ import { AuthRequest } from "../middlewares/auth";
  * ==========================
  */
 
+
+// get contacts for elder
+export const getContacts = async (req: AuthRequest, res: Response) => {
+  const elder_id = req.user?.userId;
+  if (!elder_id) return res.status(401).json({ error: "Unauthorized" });
+
+  try {
+    const result = await pool.query(
+      `SELECT uc.contact_id, u.name, u.phone_number, uc.relationship
+       FROM user_contacts uc
+       JOIN users u ON u.id = uc.contact_id
+       WHERE uc.elder_id = $1`,
+      [elder_id]
+    );
+    res.json(result.rows);
+  } catch (e: any) {
+    res.status(500).json({ error: e.message });
+  }
+};
 /** Add a contact (placeholder created if not registered) */
 export const addContact = async (req: AuthRequest, res: Response) => {
   const elder_id = req.user?.userId;

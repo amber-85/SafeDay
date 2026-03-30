@@ -1,7 +1,8 @@
 @use "variables" as v;
+@use "sass:map";
 
 @mixin respond-up($size) {
-  $breakpoint: map-get(v.$breakpoints, $size);
+  $breakpoint: map.get(v.$breakpoints, $size);
   @if $breakpoint != null {
     @media (min-width: $breakpoint) { @content; }
   } @else {
@@ -10,7 +11,7 @@
 }
 
 @mixin respond-down($size) {
-  $breakpoint: map-get(v.$breakpoints, $size);
+  $breakpoint: map.get(v.$breakpoints, $size);
   @if $breakpoint != null {
     @media (max-width: $breakpoint) { @content; }
   } @else {

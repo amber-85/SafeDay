@@ -33,7 +33,7 @@ const checkMissedCheckIns=async()=>{
             console.log (`Reminder 2 sent to ${user.name}`);
 
             await pool.query(
-                `SELECT users SET reminder2_sent=TRUE WHERE id=$1`,
+                `UPDATE users SET reminder2_sent=TRUE WHERE id=$1`,
                 [user.id]
             );
         }
@@ -41,7 +41,7 @@ const checkMissedCheckIns=async()=>{
         //36h
         if(hours>=36 && !user.alert_sent){
             const contacts=await pool.query(
-                `SELECT*FROM user_contacts WHERE user_id=$1`,
+                `SELECT*FROM user_contacts WHERE elder_id=$1`,
                 [user.id]
             );
 
