@@ -17,7 +17,7 @@ Notifieringsvy för familjemedlemmar vid genomförd eller utebliven incheckning
 Grundläggande tillgänglighetsanpassning (t.ex. tydlig typografi, kontrast, stora klickytor)
 Responsiv design anpassad för mobil och surfplatta
 Simulerad data/logik där backend saknas (mockad funktionalitet)
-Projektet kommer inte att inkludera en verklig backend, autentisering eller faktiska push-notiser. Dessa delar representeras istället genom design och frontend-logik för att tydligt visa hur systemet skulle fungera i en fullständig implementation.
+Projektet ska skapa båda frontend, backend och database. JWT authentering ska användas. PostgreSQL ska användas som databasen. notifikation ska skicka genom systemet instället MS, vilken beror på budget. 
 Projektet kommer att genomföras iterativt med fokus på struktur och spårbarhet.
 Planering & uppföljning: Github Projects används för att skapa en enkel projektboard med uppgifter uppdelade i To do, In progress och Done.
 Versionshantering: Git används kontinuerligt under projektets gång. Varje större funktion eller designförändring hanteras genom separata commits med tydliga commit-meddelanden. Projektet utvecklas främst i en main-branch.

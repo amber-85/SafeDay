@@ -1,13 +1,18 @@
-
-import { CheckInButton } from "../../components/CheckIn/CheckInButton";
+// src/pages/ElderDashboard.tsx
 import { ContactList } from "../../components/Contacts/ContactList";
+import { CheckInButton } from "../../components/CheckIn/CheckInButton";
 import "./ElderDashboard.scss";
 
 export const ElderDashboard = () => {
   return (
     <div className="elder-dashboard">
       <h1 className="elder-dashboard__title">Elder Dashboard</h1>
-      <CheckInButton />
+
+      {/*  Check-in button at the top */}
+      <div className="elder-dashboard__checkin">
+        <CheckInButton />
+      </div>
+
       <div className="elder-dashboard__section">
         <h2 className="elder-dashboard__subtitle">Your Contacts</h2>
         <ContactList />

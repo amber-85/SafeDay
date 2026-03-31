@@ -81,6 +81,14 @@ export const checkIn = async () => {
 
   return res.json();
 };
+
+// get last check-in time for elder
+export const getElderLastCheckIn = async () => {
+  const res = await fetch(`${BASE_URL}/checkins/last`, { 
+    method: "GET",
+    headers: getHeaders(false) });
+  return res.json();
+};
 /**
  * ======================
  * CONTACTS (ELDER SIDE)
@@ -116,7 +124,7 @@ export const deleteContact = async (contact_id: string) => {
 };
 
 export const getContacts = async () => {
-  const res = await fetch(`${BASE_URL}/users/add-contact`, { headers: getHeaders(false) });
+  const res = await fetch(`${BASE_URL}/users/contacts`, { headers: getHeaders(false) });
   return res.json();
 };
 
