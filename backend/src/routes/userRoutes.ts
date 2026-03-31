@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { signup, login } from "../controllers/userController";
 import { addContact, addElder,getContacts } from "../controllers/addContactsController";
-import {getElders} from "../controllers/elderController";
+import {getElders,getElderProfile} from "../controllers/elderController";
 import { authMiddleware } from "../middlewares/auth";
 
 const router = Router();
@@ -16,5 +16,6 @@ router.get("/contacts", authMiddleware, getContacts);
 
 router.post("/add-elder", authMiddleware, addElder);
 router.get("/elders", authMiddleware, getElders);
+router.get ("/elders/profile", authMiddleware, getElderProfile);
 
 export default router;

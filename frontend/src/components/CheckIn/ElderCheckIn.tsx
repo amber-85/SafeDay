@@ -1,4 +1,4 @@
-// src/components/CheckIn/ElderCheckIn.tsx
+
 import { useState, useEffect } from "react";
 import { checkIn, getElderLastCheckIn } from "../../services/api";
 import "./ElderCheckIn.scss";
