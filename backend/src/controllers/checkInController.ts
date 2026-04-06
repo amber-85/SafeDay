@@ -2,10 +2,20 @@
 import { Response } from "express";
 import { pool } from "../utils/db";
 import { AuthRequest } from "../middlewares/auth";
+import {io} from "../utils/socket";
 
-/**
- * Create a new check-in for the logged-in elder
- */
+// helper. check same day
+const isSameDay=(date1:Date, date2:Date)=>{
+  return(
+    date1.getFullYear()===date2.getFullYear()&&
+    date1.getMonth()===date2.getMonth()&&
+    date1.getDate()===date2.getDate()
+  );
+};
+
+
+//  Create check-in 1 per day
+
 export const createCheckIn = async (req: AuthRequest, res: Response) => {
   const user_id = req.user?.userId;
 
@@ -14,6 +24,20 @@ export const createCheckIn = async (req: AuthRequest, res: Response) => {
   }
 
   try {
+    // get last check-in
+    const userResult = await pool.query(
+      `SELECT last_check_in FROM users WHERE id = $1`,
+      [user_id]
+    );
+    const lastCheckIn = userResult.rows[0]?.last_check_in;
+    // no multiple check-in per day
+    if(lastCheckIn && isSameDay(new Date(lastCheckIn), new Date())){
+      return res.status(400).json({
+        error:"You have already checked in today",
+        last_check_in:lastCheckIn
+      })
+    }
+
     // Insert new check-in
     const result = await pool.query(
       `INSERT INTO check_ins (user_id)
@@ -34,15 +58,37 @@ export const createCheckIn = async (req: AuthRequest, res: Response) => {
       [user_id]
     );
 
-    // Return updated last_check_in for frontend
+    const updatedTime=userUpdate.rows[0].last_check_in;
+    // real time update to elder and contacts
+    if(io){
+      // update elder dashboard
+      io.to(`user-${user_id}`).emit("checkin_update", {
+        last_check_in: updatedTime
+      });
+
+      // update all contact dashboards
+      const contacts=await pool.query(
+        `SELECT contact_id FROM user_contacts WHERE elder_id=$1`,
+        [user_id]
+      );
+      for(const c of contacts.rows){
+        io.to(`user-${c.contact_id}`).emit("checkin_update", {
+          elder_id:user_id,
+          last_check_in:updatedTime,
+        });
+      }
+    }
+
     res.json({
       message: "Check-in successful",
-      last_check_in: userUpdate.rows[0].last_check_in,
+      last_check_in:updatedTime,
     });
-  } catch (e: any) {
-    res.status(500).json({ error: e.message });
+  } catch(e:any){
+    res.status(500).json({error:e.message});
   }
 };
+   
+
 
 /**
  * Get the last check-in timestamp for the logged-in elder
@@ -59,11 +105,18 @@ export const getLastCheckIn = async (req: AuthRequest, res: Response) => {
       `SELECT last_check_in FROM users WHERE id = $1`,
       [user_id]
     );
+    const lastCheckIn=result.rows[0]?.last_check_in;
 
+    let checkedToday=false;
+    if(lastCheckIn){
+      checkedToday=isSameDay(new Date(lastCheckIn), new Date());
+    }
     res.json({
-      last_check_in: result.rows[0]?.last_check_in || null,
+      last_check_in:lastCheckIn||null,
+      checked_today:checkedToday,
     });
-  } catch (e: any) {
-    res.status(500).json({ error: e.message });
+  } catch(e:any){
+    res.status(500).json({error:e.message});
   }
 };
+  

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { createCheckIn } from "../controllers/checkInController";
 import { authMiddleware } from "../middlewares/auth";
 import { getLastCheckIn } from "../controllers/checkInController";
-import { get } from "node:http";
+
 
 const router = Router();
 
