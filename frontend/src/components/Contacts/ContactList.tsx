@@ -1,11 +1,6 @@
 // src/components/Contacts/ContactList.tsx
 import { useEffect, useState } from "react";
-import {
-  getContacts,
-  addContact,
-  updateContact,
-  deleteContact,
-} from "../../services/api";
+import { getContacts, addContact, updateContact, deleteContact } from "../../services/api";
 import { ContactItem } from "./ContactItem";
 import { ContactForm } from "./ContactForm";
 
@@ -45,7 +40,6 @@ export const ContactList = () => {
     } else {
       await addContact(data);
     }
-
     setShowForm(false);
     fetchContacts();
   };

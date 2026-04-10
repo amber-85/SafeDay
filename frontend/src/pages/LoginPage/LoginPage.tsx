@@ -1,17 +1,35 @@
 // src/pages/LoginPage.tsx
 import { useNavigate, Link } from "react-router-dom";
+import { useEffect } from "react";
 import { LoginForm } from "../../components/Auth/LoginForm";
+import { getCurrentUser } from "../../services/api";
 import "./LoginPage.scss";
-
 
 export const LoginPage = () => {
   const navigate = useNavigate();
 
-  const handleSuccess = () => {
-    // decide where to go after login
-    navigate("/elder"); 
-    // later you can detect role (elder/contact) and route dynamically
+  const redirectByRole = () => {
+    const user = getCurrentUser();
+
+    if (!user) return;
+
+    if (user.role === "elder") {
+      navigate("/elder");
+    } else if (user.role === "contact") {
+      navigate("/contact");
+    } else {
+      navigate("/");
+    }
   };
+
+  const handleSuccess = () => {
+    redirectByRole();
+  };
+
+  // ✅ Auto-redirect if already logged in
+  useEffect(() => {
+    redirectByRole();
+  }, []);
 
   return (
     <div className="login">

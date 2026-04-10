@@ -1,0 +1,67 @@
+/* src/components/CheckIn/ElderCheckIn.scss */
+
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.elder-checkin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  background-color: v.$background-color;
+  border: 1px solid v.$border-color;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  text-align: center;
+
+  // Slightly larger on bigger screens
+  @include m.respond-up(medium) {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  &__button {
+    width: 100%;
+    max-width: 220px;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    border: none;
+
+    background-color: v.$primary-color;
+    color: v.$button-text-color;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled),
+    &:focus-visible:not(:disabled) {
+      background-color: v.$primary-color-hover;
+      outline: 2px solid v.$primary-color-hover;
+      outline-offset: 2px;
+      transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      background-color: v.$secondary-color;
+      color: v.$muted-color;
+      cursor: not-allowed;
+    }
+  }
+
+  &__last {
+    font-size: 0.9rem;
+    color: v.$muted-color;
+
+    // Improve readability for elderly users
+    @include m.respond-up(medium) {
+      font-size: 1rem;
+    }
+  }
+}

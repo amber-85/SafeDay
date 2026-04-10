@@ -4,8 +4,10 @@ import bcrypt from "bcrypt";
 import { normalizePhoneNumber } from "../utils/phone";
 import { generateToken } from "../utils/jwt";
 
+const VALID_ROLES=["elder", "contact"];
+
 export const signup = async (req: Request, res: Response) => {
-  const { phone_number, name, password } = req.body;
+  const { phone_number, name, password, role } = req.body;
 
   if (!phone_number || !password) {
     return res.status(400).json({ error: "Phone number and password are required" });
@@ -16,6 +18,7 @@ export const signup = async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Invalid phone number" });
   }
 
+  const userRole=VALID_ROLES.includes(role)? role:"elder";
   try {
     // 1. Check if user already exists
     const existingResult = await pool.query(
@@ -29,12 +32,12 @@ export const signup = async (req: Request, res: Response) => {
       if (!existingUser.password_hash) {
         const hashed = await bcrypt.hash(password, 10);
         const updated = await pool.query(
-          `UPDATE users SET password_hash = $1, name = COALESCE($2, name)
-           WHERE id = $3 RETURNING *`,
-          [hashed, name || null, existingUser.id]
+          `UPDATE users SET password_hash = $1, name = COALESCE($2, name), role=COALESCE($3, role)
+           WHERE id = $4 RETURNING *`,
+          [hashed, name || null, userRole, existingUser.id]
         );
         const user = updated.rows[0];
-        const token = generateToken(user.id);
+        const token = generateToken(user.id, user.role);
         const { password_hash, ...safeUser } = user;
         return res.json({ user: safeUser, token });
       }
@@ -46,13 +49,13 @@ export const signup = async (req: Request, res: Response) => {
     // 2. Create new user
     const hashed = await bcrypt.hash(password, 10);
     const result = await pool.query(
-      `INSERT INTO users(phone_number, name, password_hash)
-       VALUES ($1, $2, $3)
+      `INSERT INTO users(phone_number, name, password_hash, role)
+       VALUES ($1, $2, $3, $4)
        RETURNING *`,
       [normalizedPhone, name || null, hashed]
     );
     const user = result.rows[0];
-    const token = generateToken(user.id);
+    const token = generateToken(user.id, user.role);
     const { password_hash, ...safeUser } = user;
 
     res.status(201).json({ user: safeUser, token });
@@ -88,7 +91,7 @@ export const login = async (req: Request, res: Response) => {
     const match = await bcrypt.compare(password, user.password_hash);
     if (!match) return res.status(401).json({ error: "Wrong password" });
 
-    const token = generateToken(user.id);
+    const token = generateToken(user.id, user.role);
     const { password_hash, ...safeUser } = user;
 
     res.json({ user: safeUser, token });
