@@ -1,8 +1,9 @@
 // src/pages/ElderDashboard.tsx
-import { ContactList } from "../../components/Contacts/ContactList";
+
 import { CheckInButton } from "../../components/CheckIn/CheckInButton";
 import { ElderHeader } from "../../ElderHeader/ElderHeader";
 import "./ElderDashboard.scss";
+import { UserList } from "../../Users/userList";
 
 export const ElderDashboard = () => {
   return (
@@ -16,7 +17,7 @@ export const ElderDashboard = () => {
       {/* contacts section */}
       <div className="elder-dashboard__section">
         <h2 className="elder-dashboard__subtitle">Your Contacts</h2>
-        <ContactList />
+        <UserList role="elder" />
       </div>
     </div>
   );

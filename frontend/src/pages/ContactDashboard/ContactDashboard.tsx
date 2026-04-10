@@ -1,5 +1,5 @@
 // src/pages/ContactDashboard.tsx
-import { ElderList } from "../../components/Elders/ElderList";
+import { UserList } from "../../Users/userList";
 import "./ContactDashboard.scss";
 
 export const ContactDashboard = () => {
@@ -13,7 +13,7 @@ export const ContactDashboard = () => {
         Monitor your elders' check-ins
       </p>
 
-      <ElderList />
+      <UserList role="contact" />
     </div>
   );
 };
