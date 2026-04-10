@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getElderProfile, getElderLastCheckIn } from "../services/api";
+import { getProfile, getLastCheckIn } from "../services/api";
 
 // create elder header component that shows elder name and last check-in time
 export const ElderHeader = () => {
@@ -8,8 +8,8 @@ export const ElderHeader = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const profile = await getElderProfile();
-      const checkin = await getElderLastCheckIn();
+      const profile = await getProfile();
+      const checkin = await getLastCheckIn();
       setName(profile.name);
       setLastCheckIn(checkin?.last_check_in);
     };
