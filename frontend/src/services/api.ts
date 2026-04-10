@@ -164,3 +164,9 @@ export const getElders = async () => {
   const res = await fetch(`${BASE_URL}/users/elders`, { headers: getHeaders(false) });
   return res.json();
 };
+
+export const getElderProfile=async()=>{
+  const res = await fetch(`${BASE_URL}/users/elders/profile`, { headers: getHeaders(false) });
+  if(!res.ok) throw new Error(" Failed to fetch elder profile");
+  return res.json();
+}

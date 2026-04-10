@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
+const JWT_SECRET = process.env.JWT_SECRET!;
 
 // Extend Request to include user info
 export interface AuthRequest extends Request {
-  user?: { userId: string };
+  user?: { userId: string, userRole: string };
 }
 
 // Middleware
@@ -19,8 +19,8 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
   const token = authHeader.split(" ")[1];
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
-    req.user = { userId: decoded.userId };
+    const decoded = jwt.verify(token, JWT_SECRET) as { userId: string; userRole:string;};
+    req.user = decoded;
     next();
   } catch (err) {
     return res.status(401).json({ error: "Invalid or expired token" });
