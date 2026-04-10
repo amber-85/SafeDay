@@ -1,3 +1,7 @@
+Introduktion
+Namn: Bo An
+Klass: Javascriptutvecklare 24 distans
+
 Bakgrund
 Världen står inför den växande utmaningen med en åldrande befolkning. Äldre personer som bor ensamma har blivit en viktig samhällsfråga som kräver ökad uppmärksamhet. Även om många länder har relativt välstrukturerade äldreomsorgssystem, är det fortfarande svårt att dagligen följa upp välbefinnandet hos äldre personer som lever självständigt.
 När en äldre person bor ensam kan olyckor eller hälsoproblem förbli oupptäckta under lång tid. Om något händer i hemmet kan det ta timmar eller till och med dagar innan någon blir medveten om situationen. Detta leder ofta till stora förluster och emotionellt lidande för familj, släktingar och vänner. Det belyser också en brist i ett samhälle som strävar efter jämlikhet, respekt och värdighet för varje individ.
@@ -10,13 +14,12 @@ Visionen för detta projekt är att stärka relationen mellan äldre personer so
 Mål och planering
 Målet med detta projekt är att ta fram ett proof-of-concept för en webbaserad digital produkt som möjliggör dagliga incheckningar mellan äldre personer som bor ensamma och deras familjemedlemmar. Projektet fokuserar på att visa idé, användarflöde, tillgänglig design och teknisk genomförbarhet, snarare än en färdig produkt redo för lansering.
 Vid inlämning förväntas följande vara färdigställt:
-En fungerande frontend-prototyp av webbapplikationen
+En fungerande full-stack av webbapplikationen
 Ett tydligt användarflöde för:
 Daglig incheckning för äldre användare
 Notifieringsvy för familjemedlemmar vid genomförd eller utebliven incheckning
 Grundläggande tillgänglighetsanpassning (t.ex. tydlig typografi, kontrast, stora klickytor)
 Responsiv design anpassad för mobil och surfplatta
-Simulerad data/logik där backend saknas (mockad funktionalitet)
 Projektet ska skapa båda frontend, backend och database. JWT authentering ska användas. PostgreSQL ska användas som databasen. notifikation ska skicka genom systemet instället MS, vilken beror på budget. 
 Projektet kommer att genomföras iterativt med fokus på struktur och spårbarhet.
 Planering & uppföljning: Github Projects används för att skapa en enkel projektboard med uppgifter uppdelade i To do, In progress och Done.
@@ -37,3 +40,4 @@ TS
 Node
 REACT
 Github
+PostgreSQL
